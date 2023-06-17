@@ -11,7 +11,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            INote
+            INotes
           </Link>
           <button
             className="navbar-toggler"
