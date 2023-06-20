@@ -21,8 +21,8 @@ router.post(
   "/addNote",
   fetchUser,
   [
-    body("title", "Enter a valid Title").isLength({ min: 1 }),
-    body("description", "Minimum length is 8").isLength({ min: 1 }),
+    body("title", "Enter a valid Title").isLength({ min: 5 }),
+    body("description", "Minimum length is 3").isLength({ min: 5 }),
   ],
   async (req, res) => {
     const { title, description, tag } = req.body;
@@ -55,7 +55,7 @@ router.post(
 
 // Route 3 : Update note using put request  -- login required & note
 router.put("/updateNote/:id", fetchUser, async (req, res) => {
-  const { title, description, tag } = req.body;
+  const { title, description, tag, date } = req.body;
   try {
     // Create new note object
     const newNote = {};
@@ -69,6 +69,9 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
       newNote.tag = tag;
     }
 
+    if (date) {
+      newNote.date = date;
+    }
     // Find a note and update it
     let note = await Notes.findById(req.params.id);
     if (!note) {
