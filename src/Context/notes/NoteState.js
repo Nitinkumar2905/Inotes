@@ -24,29 +24,41 @@ const NoteState = (props) => {
 
   // Add a note
   const addNote = async (title, description, tag) => {
-    console.log('added')
-    //  API call
-    const response = await fetch(`${host}/api/notes/addNote/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
-      },
-      body: JSON.stringify({title,description,tag}),
-    });
-    const json = response.json()
-    const note = {
-      // user: json.user,
-      title: title,
-      description: description,
-      tag: tag
+    try {
+      // Convert title, description, and tag to strings
+      const titleString = String(title);
+      const descriptionString = String(description);
+      const tagString = String(tag);
+
+      const response = await fetch(`${host}/api/notes/addNote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0',
+        },
+        body: JSON.stringify({ title: titleString, description: descriptionString, tag: tagString }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Internal server error"); // Throw an error if the response is not successful
+      }
+
+      const json = await response.json();
+      const note = {
+        user: json.user,
+        title: titleString,
+        description: descriptionString,
+        tag: tagString,
+      };
+      setNotes(notes.concat(note));
+    } catch (error) {
+      console.log(error);
     }
-    setNotes(notes.concat(note))
-  }
+  };
 
 
   // Delete a note
-  const deleteNote = async(id) => {
+  const deleteNote = async (id) => {
     // API call
     console.log('deleting the note with the id' + id);
     const response = await fetch(`${host}/api/notes/deleteNote/${id}`, {
@@ -63,8 +75,12 @@ const NoteState = (props) => {
   }
 
   // Edit a note
-  const updateNote = async (id, title, description, tag) => {
-    console.log('cliced');
+  const editNote = async (id, title, description, tag) => {
+    // Convert title, description, and tag to strings
+    const titleString = String(title);
+    const descriptionString = String(description);
+    const tagString = String(tag);
+
     // API call 
     const response = await fetch(`${host}/api/notes/updateNote/${id}`, {
       method: "PUT",
@@ -72,24 +88,32 @@ const NoteState = (props) => {
         "Content-Type": "application/json",
         'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
       },
-      body: JSON.stringify({title,description,tag}),
+      body: JSON.stringify({ title: titleString, description: descriptionString, tag: tagString }),
     });
+    if (!response.ok) {
+      throw new Error("Internal Server Error")
+    }
+
     const json = response.json();
     console.log(json);
     // Logic code
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
-      if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
 
+    let newNotes = JSON.parse(JSON.stringify(notes))
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
+      if (element._id === id) {
+        newNotes[index].title = titleString;
+        newNotes[index].description = descriptionString;
+        newNotes[index].tag = tagString;
+        break;
       }
     }
+    setNotes(newNotes)
+    console.log(newNotes)
   }
 
   return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, updateNote, getNotes }}>{props.children}</NoteContext.Provider>
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>{props.children}</NoteContext.Provider>
   );
 };
 
