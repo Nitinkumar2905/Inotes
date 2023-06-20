@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import noteContext from "../Context/notes/noteContext";
 const NoteItem = (props) => {
-  const context = useContext(noteContext)
+  const context = useContext(noteContext);
   const { deleteNote } = context;
   const { note, updateNote } = props;
   return (
@@ -12,8 +12,29 @@ const NoteItem = (props) => {
             <h5 className="card-title">{note.title}</h5>
             <p className="card-text">{note.description}</p>
             <p className="card-text">{note.tag}</p>
-            <span className="text-white bg-primary  px-2 py-1 " onClick={() => { deleteNote(note._id) }} style={{ borderRadius: '6px', cursor: 'pointer' }}>Delete</span>
-            <span className="text-white bg-primary  px-2 py-1 mx-2 " onClick={() => { updateNote(note) }} style={{ borderRadius: '6px', cursor: 'pointer' }}>Edit Note</span>
+            <p className="card-text">
+              {note.date && typeof note.date === "string"
+                ? new Date(note.date).toLocaleString()
+                : ""}
+            </p>
+            <span
+              className="text-white bg-primary  px-2 py-1 "
+              onClick={() => {
+                deleteNote(note._id);
+              }}
+              style={{ borderRadius: "6px", cursor: "pointer" }}
+            >
+              Delete
+            </span>
+            <span
+              className="text-white bg-primary  px-2 py-1 mx-2 "
+              onClick={() => {
+                updateNote(note);
+              }}
+              style={{ borderRadius: "6px", cursor: "pointer" }}
+            >
+              Edit Note
+            </span>
           </div>
         </div>
       </div>

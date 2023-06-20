@@ -17,10 +17,8 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json()
-    console.log(json)
     setNotes(json)
   }
-
 
   // Add a note
   const addNote = async (title, description, tag) => {
@@ -49,6 +47,7 @@ const NoteState = (props) => {
         title: titleString,
         description: descriptionString,
         tag: tagString,
+        date: json.date
       };
       setNotes(notes.concat(note));
     } catch (error) {
@@ -56,11 +55,9 @@ const NoteState = (props) => {
     }
   };
 
-
   // Delete a note
   const deleteNote = async (id) => {
     // API call
-    console.log('deleting the note with the id' + id);
     const response = await fetch(`${host}/api/notes/deleteNote/${id}`, {
       method: "DELETE",
       headers: {
@@ -68,7 +65,7 @@ const NoteState = (props) => {
         'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
       },
     });
-    const json = response.json();
+    const json = await response.json();
     console.log(json)
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes)
@@ -93,11 +90,7 @@ const NoteState = (props) => {
     if (!response.ok) {
       throw new Error("Internal Server Error")
     }
-
-    const json = response.json();
-    console.log(json);
     // Logic code
-
     let newNotes = JSON.parse(JSON.stringify(notes))
     for (let index = 0; index < newNotes.length; index++) {
       const element = newNotes[index];
@@ -109,7 +102,6 @@ const NoteState = (props) => {
       }
     }
     setNotes(newNotes)
-    console.log(newNotes)
   }
 
   return (

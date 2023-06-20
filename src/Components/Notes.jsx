@@ -32,7 +32,6 @@ const Notes = () => {
   };
 
   const handleClick = (e) => {
-    console.log("etrfd");
     refClose.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
   };
@@ -90,6 +89,8 @@ const Notes = () => {
                     name="etitle"
                     value={note.etitle}
                     onChange={onchange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -103,6 +104,8 @@ const Notes = () => {
                     name="edescription"
                     value={note.edescription}
                     onChange={onchange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -141,6 +144,9 @@ const Notes = () => {
         </div>
       </div>
       <div className="row my-3">
+        <div className="Container">
+          {notes.length === 0 && "No notes available"}
+        </div>
         {notes.map((note) => {
           return (
             <NoteItem note={note} key={uuidv4()} updateNote={updateNote} />
