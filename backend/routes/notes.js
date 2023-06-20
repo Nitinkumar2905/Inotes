@@ -25,23 +25,30 @@ router.post(
     body("description", "Minimum length is 8").isLength({ min: 1 }),
   ],
   async (req, res) => {
+    const { title, description, tag } = req.body;
+
+    // Convert title, description, and tag to strings
+    const titleString = String(title);
+    const descriptionString = String(description);
+    const tagString = String(tag);
     try {
-      const {title, description, tag } = req.body;
+      // const { title, description, tag } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array });
+        return res.status(400).json({ errors: errors.array() });
       }
-      const note = await new Notes({
-        title,
-        description,
-        tag,
+      // Create a new note instance with the updated string values
+      const note = new Notes({
         user: req.user.id,
+        title: titleString,
+        description: descriptionString,
+        tag: tagString,
       });
       const savedNotes = await note.save();
       res.json(savedNotes);
     } catch (error) {
       console.log(error);
-      res.json({ error: "Internal server error" });
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 );
