@@ -4,7 +4,7 @@ import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NoteState from "./Context/notes/NoteState";
-import Alert from "./Components/Alert";
+// import Alert from "./Components/Alert";
 
 function App() {
   return (
