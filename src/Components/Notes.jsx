@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../Context/notes/noteContext";
 import { v4 as uuidv4 } from "uuid";
 import NoteItem from "./NoteItem";
@@ -6,23 +6,35 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
     // eslint-disable-next-line
   }, []);
-  const updateNote = (e) => {
-    ref.current.click();
-  };
-  const ref = useRef(null);
   const [note, setNote] = useState({
-    title: "",
-    description: "",
-    tag: "default",
+    id: "",
+    etitle: "",
+    edescription: "",
+    etag: "",
   });
 
-  const handleAddNote = (e) => {
-    e.preventDefault();
+  const ref = useRef(null);
+  const refClose = useRef(null);
+
+  const updateNote = (currentNote) => {
+    ref.current.click();
+    setNote({
+      id: currentNote._id,
+      etitle: currentNote.title,
+      edescription: currentNote.description,
+      etag: currentNote.tag,
+    });
+  };
+
+  const handleClick = (e) => {
+    console.log("etrfd");
+    refClose.current.click();
+    editNote(note.id, note.etitle, note.edescription, note.etag);
   };
 
   const onchange = (e) => {
@@ -31,6 +43,7 @@ const Notes = () => {
       [e.target.name]: [e.target.value],
     });
   };
+
   return (
     <>
       <AddNote />
@@ -38,16 +51,17 @@ const Notes = () => {
         type="button"
         className="btn btn-primary my-2 d-none"
         data-bs-toggle="modal"
+        ref={ref}
         data-bs-target="#exampleModal"
       >
         Launch demo modal
       </button>
+
       <div
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
-        ref={ref}
         aria-hidden="true"
       >
         <div className="modal-dialog">
@@ -74,6 +88,7 @@ const Notes = () => {
                     className="form-control"
                     id="etitle"
                     name="etitle"
+                    value={note.etitle}
                     onChange={onchange}
                   />
                 </div>
@@ -86,6 +101,7 @@ const Notes = () => {
                     className="form-control"
                     id="edescription"
                     name="edescription"
+                    value={note.edescription}
                     onChange={onchange}
                   />
                 </div>
@@ -98,27 +114,26 @@ const Notes = () => {
                     className="form-control"
                     id="etag"
                     name="etag"
+                    value={note.etag}
                     onChange={onchange}
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  onClick={handleAddNote}
-                >
-                  Add Note
-                </button>
               </form>
             </div>
             <div className="modal-footer">
               <button
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                onClick={handleClick}
+                className="btn btn-primary"
+              >
                 Update Note
               </button>
             </div>
@@ -128,7 +143,7 @@ const Notes = () => {
       <div className="row my-3">
         {notes.map((note) => {
           return (
-            <NoteItem note={note} updateNote={updateNote} key={uuidv4()} />
+            <NoteItem note={note} key={uuidv4()} updateNote={updateNote} />
           );
         })}
       </div>
