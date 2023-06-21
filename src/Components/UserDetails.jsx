@@ -36,7 +36,7 @@ export const UserDetails = () => {
   return (
     <div className="d-flex justify-content-center">
       <div className="card text-center" style={{ width: "50%" }}>
-        <div className="card-header fs-3 fw-bold">INotes</div>
+        <div className="card-header fs-3 fw-bold">INotes </div>
         <div className="card-body">
           <h5 className="card-title d-flex justify-content-center">
             <i className="fa-regular fa-user"></i>
