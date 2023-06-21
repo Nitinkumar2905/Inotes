@@ -6,6 +6,8 @@ const NoteState = (props) => {
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial)
 
+
+
   // Fetch all notes
   const getNotes = async () => {
     //  API call
@@ -13,12 +15,14 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
+        'auth-token':localStorage.getItem('token')
       },
     });
     const json = await response.json()
     setNotes(json)
+
   }
+
 
   // Add a note
   const addNote = async (title, description, tag) => {
@@ -32,13 +36,13 @@ const NoteState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0',
+          'auth-token':localStorage.getItem('token'),
         },
         body: JSON.stringify({ title: titleString, description: descriptionString, tag: tagString }),
       });
 
       if (!response.ok) {
-        throw new Error("Internal server error"); // Throw an error if the response is not successful
+        throw new Error("Internal server error"); // Throw an error if the response is not successfull
       }
 
       const json = await response.json();
@@ -62,7 +66,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = await response.json();
@@ -83,7 +87,7 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NGIyN2RlMGNjYTQ1Nzc3NWE0MzI0In0sImlhdCI6MTY4NDMyMDkwOX0.IWqF9_iWoscI-1bXYnQAZ5MHfpt5EMDfRnDVSPlHTm0'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title: titleString, description: descriptionString, tag: tagString }),
     });

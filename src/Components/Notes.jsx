@@ -3,12 +3,18 @@ import noteContext from "../Context/notes/noteContext";
 import { v4 as uuidv4 } from "uuid";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
+import { useNavigate } from "react-router-dom";
 
 function Notes(props) {
   const context = useContext(noteContext);
+  let navigate = useNavigate();
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
-    getNotes();
+    if (localStorage.getItem("token")) {
+      getNotes();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
   const [note, setNote] = useState({
@@ -40,7 +46,7 @@ function Notes(props) {
   const onchange = (e) => {
     setNote({
       ...note,
-      [e.target.name]: [e.target.value],
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -145,19 +151,22 @@ function Notes(props) {
         </div>
       </div>
       <div className="row my-3">
-        <div className="Container">
-          {notes.length === 0 && "No notes available"}
-        </div>
-        {notes.map((note) => {
-          return (
-            <NoteItem
-              note={note}
-              key={uuidv4()}
-              showAlert={props.showAlert}
-              updateNote={updateNote}
-            />
-          );
-        })}
+        {notes.length ? (
+          notes.map((note) => {
+            return (
+              <NoteItem
+                note={note}
+                key={uuidv4()}
+                showAlert={props.showAlert}
+                updateNote={updateNote}
+              />
+            );
+          })
+        ) : (
+          <div className="Container">
+            {notes.length === 0 && "No notes available"}
+          </div>
+        )}
       </div>
     </>
   );
