@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -71,6 +71,10 @@ const Login = (props) => {
             Login
           </button>
         </form>
+        <div className="container my-2 fs-5 " style={{}}>
+            <span className="">New User ? &nbsp;</span>
+            <Link className="text-decoration-none fw-semibold text-primary" to="/signUp">SignUp</Link>
+        </div>
       </div>
     </>
   );
