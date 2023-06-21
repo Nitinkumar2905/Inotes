@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = (props) => {
+  const host = "http://localhost:5000";
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
-    // cpassword: "",
   });
   const Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     const { name, email, password } = credentials;
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch(`${host}/api/auth/createuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,11 +29,11 @@ const SignUp = (props) => {
 
     // save the auth token and redirect to the note page
     if (json.success) {
-      localStorage.setItem("token", json.authtoken);
-      Navigate("/about");
-      props.showAlert("SignUp Successfully", "success")
+      localStorage.setItem("token", json.authToken);
+      Navigate("/home");
+      props.showAlert("SignUp Successfully", "success");
     } else {
-      props.showAlert("Invalid credentials", "danger")
+      props.showAlert("Invalid credentials", "danger");
     }
   };
   const onChange = (e) => {
@@ -42,6 +42,9 @@ const SignUp = (props) => {
   return (
     <>
       <div className="container my-5" style={{ width: "50%" }}>
+        <h3 className="d-flex justify-content-center mb-5">
+          New to INotes ? Join Now
+        </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
@@ -84,25 +87,19 @@ const SignUp = (props) => {
               required
             />
           </div>
-          {/* <div className="mb-3">
-            <label htmlFor="cpassword" className="form-label">
-              Confirm password:
-            </label>
-            <input
-              type="password"
-              name="cpassword"
-              onChange={onChange}
-              className="form-control"
-              id="cpassword"
-            />
-          </div> */}
           <div id="emailHelp" className="form-text my-3">
             We'll never share your credentials with anyone else.
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary fw-semibold">
             SignUp
           </button>
         </form>
+        <div className="d-flex justify-content-center mt-3 fs-5">
+          <span>Already a User ?</span> &nbsp;
+          <Link className="text-decoration-none fw-semibold" to="/login">
+            Login Now
+          </Link>
+        </div>
       </div>
     </>
   );
