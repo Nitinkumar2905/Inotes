@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+function Notes(props) {
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
@@ -34,6 +34,7 @@ const Notes = () => {
   const handleClick = (e) => {
     refClose.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
+    props.showAlert("Note updated successfully", "success");
   };
 
   const onchange = (e) => {
@@ -45,7 +46,7 @@ const Notes = () => {
 
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={props.showAlert} />
       <button
         type="button"
         className="btn btn-primary my-2 d-none"
@@ -149,12 +150,17 @@ const Notes = () => {
         </div>
         {notes.map((note) => {
           return (
-            <NoteItem note={note} key={uuidv4()} updateNote={updateNote} />
+            <NoteItem
+              note={note}
+              key={uuidv4()}
+              showAlert={props.showAlert}
+              updateNote={updateNote}
+            />
           );
         })}
       </div>
     </>
   );
-};
+}
 
 export default Notes;

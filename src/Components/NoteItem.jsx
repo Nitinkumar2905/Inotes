@@ -21,6 +21,7 @@ const NoteItem = (props) => {
               className="text-white bg-primary  px-2 py-1 "
               onClick={() => {
                 deleteNote(note._id);
+                props.showAlert("Note deleted successfully", "success");
               }}
               style={{ borderRadius: "6px", cursor: "pointer" }}
             >
