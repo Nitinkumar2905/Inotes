@@ -13,21 +13,23 @@ router.post(
   [
     body("name", "Enter a valid name").isLength({ min: 3 }),
     body("email", "Enter a valid email").isEmail(),
-    body("password", "Minimum length is 8").isLength({ min: 8 }),
+    body("password", "Minimum length is 8").isLength({ min: 3 }),
   ],
   async (req, res) => {
     // If there are error , return bad request & the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      const success = false
+      return res.status(400).json({ success, errors: errors.array() });
     }
     // Check whether the user exists with the same email or not:
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
+        const success = false;
         return res
           .status(400)
-          .json({ error: "User already exists with this email." });
+          .json({ success, error: "User already exists with this email." });
       }
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
@@ -44,9 +46,9 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-      // console.log(jwtData);
       // res.send(user);
-      res.json({ authToken });
+      const success = true
+      res.json({ success, authToken });
     } catch (error) {
       console.log(error);
       res.json({ error: "Internal server error" });
@@ -79,9 +81,10 @@ router.post(
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
+        const success = false;
         return res
           .status(400)
-          .json({ error: "Please enter correct credentials to login" });
+          .json({ success, error: "Please enter correct credentials to login" });
       }
 
       const data = {
@@ -91,7 +94,8 @@ router.post(
       };
 
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json({ authToken });
+      const success = true
+      res.json({ success, authToken });
       console.log("Login successfully");
     } catch (error) {
       console.log(error);
@@ -107,7 +111,8 @@ router.post("/getUser", fetchUser, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findById(userId).select("+password");
     // const password = jwt.decode(user.password)
-    res.send(user);
+    res.send({ user });
+
     // console.log(password)
     console.log("Fetched data successfully");
   } catch (error) {
