@@ -2,15 +2,15 @@ import "./App.css";
 import About from "./Components/About";
 import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NoteState from "./Context/notes/NoteState";
 import SignUp from "./Components/SignUp";
 import Login from "./Components/Login";
+import { UserDetails } from "./Components/UserDetails";
 import Alert from "./Components/Alert";
 import { useState } from "react";
 
 function App() {
-  const isAuthenticated = false
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type) => {
     setAlert({
@@ -19,7 +19,7 @@ function App() {
     });
     setTimeout(() => {
       setAlert(null);
-    }, 1000);
+    }, 1500);
   };
   return (
     <NoteState>
@@ -27,11 +27,12 @@ function App() {
         <Navbar />
         <Alert alert={alert} />
         <Routes>
-          <Route exact path="/" element={isAuthenticated ? <Home /> : <Navigate to="login" />} />
+          <Route exact path="/" element={<Home />} />
           <Route exact path="/home" element={<Home showAlert={showAlert} />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/login" element={<Login showAlert={showAlert} />} />
           <Route exact path="/signUp" element={<SignUp showAlert={showAlert} />} />
+          <Route exact path="/getUser" element={<UserDetails/>} />
         </Routes>
       </Router>
     </NoteState>

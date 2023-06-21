@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <div>About Page</div>
+      <div className="container d-flex justify-content-center">About Page</div>
     </>
   );
 };
