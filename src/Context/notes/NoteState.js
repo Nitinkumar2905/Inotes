@@ -15,7 +15,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'auth-token':localStorage.getItem('token')
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = await response.json()
@@ -36,7 +36,7 @@ const NoteState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'auth-token':localStorage.getItem('token'),
+          'auth-token': localStorage.getItem('token'),
         },
         body: JSON.stringify({ title: titleString, description: descriptionString, tag: tagString }),
       });
@@ -107,7 +107,6 @@ const NoteState = (props) => {
     }
     setNotes(newNotes)
   }
-
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>{props.children}</NoteContext.Provider>
   );

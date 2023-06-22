@@ -111,7 +111,7 @@ const Login = (props) => {
             to="/signUp"
           >
             Click Here
-          </Link>{" "}
+          </Link>
         </div>
       </div>
     </>

@@ -11,18 +11,7 @@ import Alert from "./Components/Alert";
 import { useState } from "react";
 
 function App() {
-  const [mode, setMode] = useState('Light')
 
-  const toggleMode = () => {
-    if (mode === "Light") {
-      setMode("Dark");
-      document.body.style.backgroundColor = "green";
-    }
-    else {
-      setMode("Light");
-      document.body.style.backgroundColor = "white";
-    }
-  }
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type) => {
     setAlert({
@@ -31,9 +20,23 @@ function App() {
     });
     setTimeout(() => {
       setAlert(null);
-    }, 1500);
+    }, 1000);
   };
-  document.body.style.backgroundColor = `${mode === "Dark" ? "#404040" : "white"}`;
+  const [mode, setMode] = useState('Dark')
+
+  const toggleMode = () => {
+    if (mode === "Dark") {
+      setMode("Light");
+      showAlert('Switched to light mode', 'success')
+      // document.body.style.backgroundColor = "#E3DAC9";
+    }
+    else {
+      setMode("Dark");
+      showAlert('Switched to dark mode', 'success')
+      // document.body.style.backgroundColor = "#E3DAC9";
+    }
+  }
+  document.body.style.backgroundColor = `${mode === "Dark" ? "#404040" : "#F2F3F4"}`;
   return (
     <NoteState>
       <Router>

@@ -6,7 +6,8 @@ const NoteItem = (props) => {
   const { note, updateNote } = props;
   return (
     <>
-      <div className="col-md-3 my-2 ">
+      
+      <div className="m-3" style={{ height: "100%" }}>
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">{note.title}</h5>
@@ -18,9 +19,9 @@ const NoteItem = (props) => {
                 : ""}
             </p>
             <span
-              className={`text-white bg-${
-                props.mode === "Dark" ? "black" : "primary"
-              }  px-2 py-1`}
+              className={`px-2 py-1 me-2 btn btn-${
+                props.mode === "Dark" ? "primary" : "dark"
+              } bg-${props.mode === "Dark" ? "black" : "primary"}`}
               onClick={() => {
                 deleteNote(note._id);
                 props.showAlert("Note deleted successfully", "success");
@@ -30,9 +31,9 @@ const NoteItem = (props) => {
               Delete
             </span>
             <span
-              className={`text-white bg-${
-                props.mode === "Dark" ? "black" : "primary"
-              }   px-2 py-1 mx-2 `}
+              className={`px-2 py-1 btn btn-${
+                props.mode === "Dark" ? "primary" : "dark"
+              } bg-${props.mode === "Dark" ? "black" : "primary"}`}
               onClick={() => {
                 updateNote(note);
               }}

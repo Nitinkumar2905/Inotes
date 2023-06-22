@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import userIcon from "./img/user.png";
 
 const Navbar = (props) => {
-  const [loading, setLoading] = useState(false)
   const Navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -13,20 +12,25 @@ const Navbar = (props) => {
   let location = useLocation();
   const handleUserInfo = () => {
     ref.current.click();
-    Navigate('/getUser')
+    Navigate("/getUser");
   };
-  
+
   return (
     <>
       <nav
-        className={` sticky-top  border-bottom  border-${
+        className={` shadow sticky-top  border-bottom  border-${
           props.mode
         } navbar navbar-expand-lg navbar-${props.mode}  bg-${
-          props.mode === "Dark" ? "dark" : "white"
+          props.mode === "Dark" ? "dark" : "light-subtle"
         } text-${props.mode === "Dark" ? "white" : "dark"}`}
       >
         <div className="container-fluid">
-          <Link className={`navbar-brand text-${props.mode==="Dark"?"white":"dark"}`} to="/">
+          <Link
+            className={`navbar-brand text-${
+              props.mode === "Dark" ? "white" : "dark"
+            }`}
+            to="/"
+          >
             INotes
           </Link>
           <button
@@ -91,31 +95,45 @@ const Navbar = (props) => {
                 className="form-check-label"
                 htmlFor="flexSwitchCheckDefault"
               >
-                Dark Mode
+                Light Mode
               </label>
             </div>{" "}
             {!localStorage.getItem("token") ? (
               <form className="d-flex" role="search">
-                <Link className="btn btn-primary mr-2" to="/login">
+                <Link
+                  className={`me-1 fs-6 fw-semibold btn btn-${
+                    props.mode === "Dark" ? "primary" : "dark"
+                  } bg-${props.mode === "Dark" ? "black" : "primary"}`}
+                  to="/login"
+                >
                   Login
                 </Link>
-                <Link className="btn btn-primary mx-2" to="/signUp">
+                <Link
+                  className={`ms-1 fs-6 fw-semibold btn btn-${
+                    props.mode === "Dark" ? "primary" : "dark"
+                  } bg-${props.mode === "Dark" ? "black" : "primary"}`}
+                  to="/signUp"
+                >
                   SignUp
                 </Link>
               </form>
             ) : (
               <div>
                 <Link
-                ref={ref}
+                  ref={ref}
                   onClick={handleUserInfo}
                   to="/UserInfo"
                   className="text-white mx-4 fw-semibold fs-6 text-decoration-none "
                   style={{ cursor: "pointer" }}
-                  
                 >
-                  <img src={userIcon} alt="" />
+                  <img className={` bg-${props.mode==="Dark"?"white":""} border rounded-5 border-${props.mode==="Dark"?"primary":"dark"}`} src={userIcon} alt="" />
                 </Link>
-                <button onClick={handleLogOut} className="btn-primary btn">
+                <button
+                  onClick={handleLogOut}
+                  className={`ms-1 fs-6 fw-semibold btn btn-${
+                    props.mode === "Dark" ? "primary" : "dark"
+                  } bg-${props.mode === "Dark" ? "black" : "primary"}`}
+                >
                   LogOut
                 </button>
               </div>
