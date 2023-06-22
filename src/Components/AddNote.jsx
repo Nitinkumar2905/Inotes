@@ -25,12 +25,12 @@ const AddNote = (props) => {
   };
   return (
     <>
-      <div className="container d-flex justify-content-center fw-semibold fs-2 text-primary">
+      <div className={`container d-flex justify-content-center fw-semibold fs-2 text-${props.mode==="Dark"?"white":"dark"}`}>
         Create a Note
       </div>
       <form style={{ width: "100%" }}>
         <div className="mb-3">
-          <label htmlFor="title" className="fs-5 form-label">
+          <label htmlFor="title" className={`fs-5 form-label text-${props.mode==="Dark"?"white":"dark"}`}>
             Title:
           </label>
           <input
@@ -45,7 +45,7 @@ const AddNote = (props) => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="description" className="fs-5 form-label">
+          <label htmlFor="description" className={`text-${props.mode==="Dark"?"white":"dark"} fs-5 form-label`}>
             Description:
           </label>
           <input
@@ -60,7 +60,7 @@ const AddNote = (props) => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="tag" className="fs-5 form-label">
+          <label htmlFor="tag" className={`text-${props.mode==="Dark"?"white":"dark"} fs-5 form-label`}>
             Tag:
           </label>
           <input
@@ -74,7 +74,7 @@ const AddNote = (props) => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary"
+          className={`btn btn-${props.mode==="Dark"?"black":"primary"} text-white bg-${props.mode==="Dark"?"black":"primary"}`}
           onClick={handleAddNote}
         >
           Add Note

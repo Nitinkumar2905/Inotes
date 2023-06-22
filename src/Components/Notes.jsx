@@ -52,7 +52,7 @@ function Notes(props) {
 
   return (
     <>
-      <AddNote showAlert={props.showAlert} />
+      <AddNote showAlert={props.showAlert} mode={props.mode} />
       <button
         type="button"
         className="btn btn-primary my-2 d-none"
@@ -73,7 +73,7 @@ function Notes(props) {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
+              <h1 className="modal-title fs-5 " id="exampleModalLabel">
                 Edit note
               </h1>
               <button
@@ -159,6 +159,7 @@ function Notes(props) {
                 key={uuidv4()}
                 showAlert={props.showAlert}
                 updateNote={updateNote}
+                mode={props.mode}
               />
             );
           })

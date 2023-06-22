@@ -36,12 +36,21 @@ const Login = (props) => {
   return (
     <>
       <div className="container my-5" style={{ width: "50%" }}>
-        <h3 className="d-flex justify-content-center mb-5">
+        <h3
+          className={`d-flex justify-content-center mb-5 text-${
+            props.mode === "Dark" ? "white" : "dark"
+          }`}
+        >
           Login to Continue
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+            <label
+              htmlFor="email"
+              className={`form-label text-${
+                props.mode === "Dark" ? "white" : "dark"
+              }`}
+            >
               Email address
             </label>
             <input
@@ -53,12 +62,22 @@ const Login = (props) => {
               aria-describedby="emailHelp"
               onChange={onChange}
             />
-            <div id="email" className="form-text">
+            <div
+              id="email"
+              className={`form-text text-${
+                props.mode === "Dark" ? "white" : "dark"
+              }`}
+            >
               We'll never share your email with anyone else.
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label
+              htmlFor="password"
+              className={`form-label text-${
+                props.mode === "Dark" ? "white" : "dark"
+              }`}
+            >
               Password
             </label>
             <input
@@ -70,18 +89,29 @@ const Login = (props) => {
               onChange={onChange}
             />
           </div>
-          <button type="submit" className="fs-6 fw-semibold btn btn-primary">
+          <button
+            type="submit"
+            className={`fs-6 fw-semibold btn btn-${
+              props.mode === "Dark" ? "primary" : "dark"
+            } bg-${props.mode === "Dark" ? "black" : "primary"}`}
+          >
             Login
           </button>
         </form>
-        <div className="container my-2 fs-5 d-flex justify-content-center ">
+        <div
+          className={`container my-2 fs-5 d-flex text-${
+            props.mode === "Dark" ? "white" : "dark"
+          } justify-content-center`}
+        >
           <span className="">New User ? &nbsp;</span>
           <Link
-            className="text-decoration-none fw-semibold text-primary"
+            className={` link-underline-primary link-offset-1 text-decoration-${props.mode==="Light" && "none"} fw-semibold text-${
+              props.mode === "Dark" ? "white" : "dark"
+            }`}
             to="/signUp"
           >
-            SignUp
-          </Link>
+            Click Here
+          </Link>{" "}
         </div>
       </div>
     </>

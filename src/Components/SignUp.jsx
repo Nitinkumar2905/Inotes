@@ -42,12 +42,12 @@ const SignUp = (props) => {
   return (
     <>
       <div className="container my-5" style={{ width: "50%" }}>
-        <h3 className="d-flex justify-content-center mb-5">
+        <h3 className={`d-flex justify-content-center mb-5 text-${props.mode==="Dark"?"white":"dark"}`}>
           New to INotes ? Join Now
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="name" className={`form-label text-${props.mode==="Dark"?"white":"dark"}`}>
               Name:
             </label>
             <input
@@ -61,7 +61,7 @@ const SignUp = (props) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className={`form-label text-${props.mode==="Dark"?"white":"dark"}`}>
               Email address:
             </label>
             <input
@@ -75,7 +75,7 @@ const SignUp = (props) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className={`form-label text-${props.mode==="Dark"?"white":"dark"}`}>
               Set password:
             </label>
             <input
@@ -87,16 +87,22 @@ const SignUp = (props) => {
               required
             />
           </div>
-          <div id="emailHelp" className="form-text my-3">
+          <div id="emailHelp" className={`form-text my-3 text-${props.mode==="Dark"?"white":"dark"}`}>
             We'll never share your credentials with anyone else.
           </div>
-          <button type="submit" className="btn btn-primary fw-semibold">
+          <button type="submit" className={`fs-6 fw-semibold btn btn-${
+              props.mode === "Dark" ? "primary" : "dark"
+            } bg-${props.mode === "Dark" ? "black" : "primary"}`}>
             SignUp
           </button>
         </form>
-        <div className="d-flex justify-content-center mt-3 fs-5">
+        <div className={`container my-2 fs-5 d-flex text-${
+            props.mode === "Dark" ? "white" : "dark"
+          } justify-content-center`}>
           <span>Already a User ?</span> &nbsp;
-          <Link className="text-decoration-none fw-semibold" to="/login">
+          <Link  className={` link-underline-primary link-offset-1 text-decoration-${props.mode==="Light" && "none"} fw-semibold text-${
+              props.mode === "Dark" ? "white" : "dark"
+            }`} to="/login">
             Login Now
           </Link>
         </div>

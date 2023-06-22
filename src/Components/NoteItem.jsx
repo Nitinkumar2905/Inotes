@@ -18,7 +18,9 @@ const NoteItem = (props) => {
                 : ""}
             </p>
             <span
-              className="text-white bg-primary  px-2 py-1 "
+              className={`text-white bg-${
+                props.mode === "Dark" ? "black" : "primary"
+              }  px-2 py-1`}
               onClick={() => {
                 deleteNote(note._id);
                 props.showAlert("Note deleted successfully", "success");
@@ -28,7 +30,9 @@ const NoteItem = (props) => {
               Delete
             </span>
             <span
-              className="text-white bg-primary  px-2 py-1 mx-2 "
+              className={`text-white bg-${
+                props.mode === "Dark" ? "black" : "primary"
+              }   px-2 py-1 mx-2 `}
               onClick={() => {
                 updateNote(note);
               }}

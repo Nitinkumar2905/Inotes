@@ -11,6 +11,18 @@ import Alert from "./Components/Alert";
 import { useState } from "react";
 
 function App() {
+  const [mode, setMode] = useState('Light')
+
+  const toggleMode = () => {
+    if (mode === "Light") {
+      setMode("Dark");
+      document.body.style.backgroundColor = "green";
+    }
+    else {
+      setMode("Light");
+      document.body.style.backgroundColor = "white";
+    }
+  }
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type) => {
     setAlert({
@@ -21,18 +33,19 @@ function App() {
       setAlert(null);
     }, 1500);
   };
+  document.body.style.backgroundColor = `${mode === "Dark" ? "#404040" : "white"}`;
   return (
     <NoteState>
       <Router>
-        <Navbar />
+        <Navbar mode={mode} handleMode={toggleMode} />
         <Alert alert={alert} />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/home" element={<Home showAlert={showAlert} />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/login" element={<Login showAlert={showAlert} />} />
-          <Route exact path="/signUp" element={<SignUp showAlert={showAlert} />} />
-          <Route exact path="/getUser" element={<UserDetails/>} />
+          <Route exact path="/" element={<Home mode={mode} />} />
+          <Route exact path="/home" element={<Home mode={mode} showAlert={showAlert} />} />
+          <Route exact path="/about" element={<About mode={mode} />} />
+          <Route exact path="/login" element={<Login mode={mode} showAlert={showAlert} />} />
+          <Route exact path="/signUp" element={<SignUp mode={mode} showAlert={showAlert} />} />
+          <Route exact path="/UserInfo" element={<UserDetails />} />
         </Routes>
       </Router>
     </NoteState>

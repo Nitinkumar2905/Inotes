@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import userIcon from "./img/user.png";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const [loading, setLoading] = useState(false)
   const Navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
     Navigate("/login");
   };
+  const ref = useRef(null);
   let location = useLocation();
-
+  const handleUserInfo = () => {
+    ref.current.click();
+    Navigate('/getUser')
+  };
+  
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <nav
+        className={` sticky-top  border-bottom  border-${
+          props.mode
+        } navbar navbar-expand-lg navbar-${props.mode}  bg-${
+          props.mode === "Dark" ? "dark" : "white"
+        } text-${props.mode === "Dark" ? "white" : "dark"}`}
+      >
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+          <Link className={`navbar-brand text-${props.mode==="Dark"?"white":"dark"}`} to="/">
             INotes
           </Link>
           <button
@@ -24,8 +37,17 @@ const Navbar = () => {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            style={{
+              backgroundColor: "white",
+              border: `1px solid ${props.mode === "Dark" ? "white" : "dark"}`,
+            }}
           >
-            <span className="navbar-toggler-icon"></span>
+            <span
+              className="navbar-toggler-icon"
+              style={{
+                color: `${props.mode === "Dark" ? "dark" : "white"}`,
+              }}
+            ></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -36,6 +58,9 @@ const Navbar = () => {
                   }`}
                   aria-current="page"
                   to="/home"
+                  style={{
+                    color: `${props.mode === "Dark" ? "white" : "black"}`,
+                  }}
                 >
                   Home
                 </Link>
@@ -46,11 +71,29 @@ const Navbar = () => {
                     location.pathname === "/about" ? "active" : ""
                   }`}
                   to="/about"
+                  style={{
+                    color: `${props.mode === "Dark" ? "white" : "black"}`,
+                  }}
                 >
                   About
                 </Link>
               </li>
             </ul>
+            <div className="form-check form-switch mx-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                onClick={props.handleMode}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
+                Dark Mode
+              </label>
+            </div>{" "}
             {!localStorage.getItem("token") ? (
               <form className="d-flex" role="search">
                 <Link className="btn btn-primary mr-2" to="/login">
@@ -62,7 +105,16 @@ const Navbar = () => {
               </form>
             ) : (
               <div>
-                <Link to="/getUser" className="text-white mx-4 fw-semibold fs-6 text-decoration-none " style={{cursor:'pointer'}}>User Info.</Link>
+                <Link
+                ref={ref}
+                  onClick={handleUserInfo}
+                  to="/UserInfo"
+                  className="text-white mx-4 fw-semibold fs-6 text-decoration-none "
+                  style={{ cursor: "pointer" }}
+                  
+                >
+                  <img src={userIcon} alt="" />
+                </Link>
                 <button onClick={handleLogOut} className="btn-primary btn">
                   LogOut
                 </button>
