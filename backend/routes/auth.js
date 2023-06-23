@@ -76,7 +76,7 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ error: "Please enter correct credentials to login" });
+          .json({ error: "User doesn't exist" });
       }
 
       const passwordCompare = await bcrypt.compare(password, user.password);
@@ -111,7 +111,7 @@ router.post("/getUser", fetchUser, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findById(userId).select("+password");
     // const password = jwt.decode(user.password)
-    res.send({ user });
+    res.send({user});
 
     // console.log(password)
     console.log("Fetched data successfully");
@@ -120,4 +120,22 @@ router.post("/getUser", fetchUser, async (req, res) => {
     res.json({ error: "Internal server error" });
   }
 });
+
+// Route 4: Delete the logged user using DELETE /api/auth/deleteUser -- login required
+router.delete('/deleteUser/:id', fetchUser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    let user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    await User.findByIdAndDelete(userId);
+    res.json("Account deleted successfully");
+    console.log("Account deleted successfully")
+  } catch (error) {
+    console.log(error);
+    return res.json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
