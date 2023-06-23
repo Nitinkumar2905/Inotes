@@ -21,8 +21,8 @@ router.post(
   "/addNote",
   fetchUser,
   [
-    body("title", "Enter a valid Title").isLength({ min: 5 }),
-    body("description", "Minimum length is 3").isLength({ min: 5 }),
+    body("title", "Enter a valid Title").isLength({ min: 3 }),
+    body("description", "Minimum length is 3").isLength({ min: 3 }),
   ],
   async (req, res) => {
     const { title, description, tag } = req.body;
@@ -96,9 +96,8 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
 
 // Route 4 : Delete note using delete request  -- login required & note
 router.delete("/deleteNote/:id", fetchUser, async (req, res) => {
-  //   const { title, description, tag } = req.body;
   try {
-    // Find a note and update it
+    // Find a note and delete it
     let note = await Notes.findById(req.params.id);
     if (!note) {
       return res.status(404).send("Not Found");
