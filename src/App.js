@@ -48,7 +48,7 @@ function App() {
           <Route exact path="/about" element={<About mode={mode} />} />
           <Route exact path="/login" element={<Login mode={mode} showAlert={showAlert} />} />
           <Route exact path="/signUp" element={<SignUp mode={mode} showAlert={showAlert} />} />
-          <Route exact path="/UserInfo" element={<UserDetails />} />
+          <Route exact path="/UserInfo" element={<UserDetails />} showAlert={showAlert} />
         </Routes>
       </Router>
     </NoteState>

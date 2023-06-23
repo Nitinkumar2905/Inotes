@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import userIcon from "./img/user.png";
 
 const Navbar = (props) => {
+
   const Navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -14,7 +15,6 @@ const Navbar = (props) => {
     ref.current.click();
     Navigate("/getUser");
   };
-
   return (
     <>
       <nav

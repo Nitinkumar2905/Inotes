@@ -14,7 +14,6 @@ const AddNote = (props) => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
     setNote({ title: "", description: "", tag: "" });
-    props.showAlert("Note added successfully", "success");
   };
 
   const onchange = (e) => {
@@ -25,7 +24,10 @@ const AddNote = (props) => {
   };
   return (
     <>
-      <div className=" d-flex justify-content-center flex-column " style={{width:'35vw'}}>
+      <div
+        className=" d-flex justify-content-center flex-column "
+        style={{ width: "35vw" }}
+      >
         <div
           className={` container d-flex justify-content-center fs-3 text-${
             props.mode === "Dark" ? "white" : "dark"
@@ -46,15 +48,18 @@ const AddNote = (props) => {
             </label>
             <input
               type="text"
-              className="form-control" style={{width:'30vw'}}
+              className="form-control"
+              style={{ width: "30vw" }}
               id="title"
               name="title"
               value={note.title}
               onChange={onchange}
-              minLength={5}
+              minLength="5"
               required
             />
+            <small className={`text-${props.mode==="Dark"?"white":"dark"}`}style={{fontSize:'13px'}}>Title must contain at least 3 character</small>
           </div>
+
           <div className="mb-3">
             <label
               htmlFor="description"
@@ -66,14 +71,16 @@ const AddNote = (props) => {
             </label>
             <input
               type="text"
-              className="form-control" style={{width:'30vw'}}
+              className="form-control"
+              style={{ width: "30vw" }}
               id="description"
               name="description"
               value={note.description}
               onChange={onchange}
-              minLength={5}
+              minLength="5"
               required
             />
+            <small className={`text-${props.mode==="Dark"?"white":"dark"}`}style={{fontSize:'13px'}}>Description must contain at least 3 character</small>
           </div>
           <div className="mb-3">
             <label
@@ -82,11 +89,12 @@ const AddNote = (props) => {
                 props.mode === "Dark" ? "white" : "dark"
               } form-label`}
             >
-              Tag:
+              Tag(<small style={{fontSize:'12px'}}>Optional</small>):
             </label>
             <input
               type="text"
-              className="form-control" style={{width:'30vw'}}
+              className="form-control"
+              style={{ width: "30vw" }}
               id="tag"
               name="tag"
               value={note.tag}
