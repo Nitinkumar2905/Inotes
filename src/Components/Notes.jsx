@@ -9,7 +9,7 @@ import "./Notes.css";
 function Notes(props) {
   const context = useContext(noteContext);
   let navigate = useNavigate();
-  const { notes, noteCount, getNotes, editNote } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getNotes();

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 export const UserDetails = (props) => {
   const Navigate = useNavigate();
   const ref = useRef(null);
