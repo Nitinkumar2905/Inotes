@@ -58,8 +58,8 @@ const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/home" ? "active" : ""
-                  }`}
+                    location.pathname === "/home" ? "fw-semibold" :""
+                  } link-offset-2`}
                   aria-current="page"
                   to="/home"
                   style={{
@@ -72,8 +72,8 @@ const Navbar = (props) => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/about" ? "active" : ""
-                  }`}
+                    location.pathname === "/about" ? "fw-semibold" : ""
+                  } link-offset-2`}
                   to="/about"
                   style={{
                     color: `${props.mode === "Dark" ? "white" : "black"}`,
