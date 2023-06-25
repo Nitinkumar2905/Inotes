@@ -9,9 +9,7 @@ router.get("/fetchAllNotes", fetchUser, async (req, res) => {
   try {
     const notes = await Notes.find({ user: req.user.id });
     res.json(notes);
-    console.log(notes);
   } catch (error) {
-    console.log(error);
     res.json({ error: "Internal server error" });
   }
 });
@@ -32,7 +30,6 @@ router.post(
     const descriptionString = String(description);
     const tagString = String(tag);
     try {
-      // const { title, description, tag } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -47,7 +44,6 @@ router.post(
       const savedNotes = await note.save();
       res.json(savedNotes);
     } catch (error) {
-      console.log(error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
@@ -89,7 +85,6 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
     );
     res.json({ note });
   } catch (error) {
-    console.log(error);
     res.json({ error: "Internal server error" });
   }
 });
@@ -110,7 +105,6 @@ router.delete("/deleteNote/:id", fetchUser, async (req, res) => {
     note = await Notes.findByIdAndDelete(req.params.id);
     res.json("Successfully deleted");
   } catch (error) {
-    console.log(error);
     res.json({ error: "Internal server error" });
   }
 });

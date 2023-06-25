@@ -110,7 +110,6 @@ router.post("/getUser", fetchUser, async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId).select("+password");
-    // const password = jwt.decode(user.password)
     res.send({user});
 
     // console.log(password)
