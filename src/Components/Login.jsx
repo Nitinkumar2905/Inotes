@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
@@ -20,7 +20,6 @@ const Login = (props) => {
     });
 
     const json = await response.json();
-    console.log(credentials.email);
     if (json.success) {
       // save the auth token and redirect to the note page
       localStorage.setItem("token", json.authToken);
@@ -33,6 +32,7 @@ const Login = (props) => {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
   return (
     <>
       <div className="container my-5" style={{ width: "50%" }}>
@@ -71,7 +71,7 @@ const Login = (props) => {
               We'll never share your email with anyone else.
             </div>
           </div>
-          <div className="mb-3">
+          <div className="mb-3 d-flex flex-column">
             <label
               htmlFor="password"
               className={`form-label text-${
@@ -89,6 +89,7 @@ const Login = (props) => {
               onChange={onChange}
             />
           </div>
+
           <button
             type="submit"
             className={`fs-6 fw-semibold btn btn-${
@@ -105,9 +106,9 @@ const Login = (props) => {
         >
           <span className="">New User ? &nbsp;</span>
           <Link
-            className={` link-underline-primary link-offset-1 text-decoration-${props.mode==="Light" && "none"} fw-semibold text-${
-              props.mode === "Dark" ? "white" : "dark"
-            }`}
+            className={` link-underline-primary link-offset-1 text-decoration-${
+              props.mode === "Light" && "none"
+            } fw-semibold text-${props.mode === "Dark" ? "white" : "dark"}`}
             to="/signUp"
           >
             Click Here

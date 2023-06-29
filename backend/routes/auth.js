@@ -46,9 +46,10 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-      // res.send(user);
-      const success = true
+      res.send(user);
+      const success = true;
       res.json({ success, authToken });
+      console.log("Account created successfully")
     } catch (error) {
       console.log(error);
       res.json({ error: "Internal server error" });
@@ -74,17 +75,16 @@ router.post(
     try {
       const user = await User.findOne({ email });
       if (!user) {
-        return res
-          .status(400)
-          .json({ error: "User doesn't exist" });
+        return res.status(400).json({ error: "User doesn't exist" });
       }
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         const success = false;
-        return res
-          .status(400)
-          .json({ success, error: "Please enter correct credentials to login" });
+        return res.status(400).json({
+          success,
+          error: "Please enter correct credentials to login",
+        });
       }
 
       const data = {
@@ -94,7 +94,7 @@ router.post(
       };
 
       const authToken = jwt.sign(data, JWT_SECRET);
-      const success = true
+      const success = true;
       res.json({ success, authToken });
       console.log("Login successfully");
     } catch (error) {
@@ -111,7 +111,7 @@ router.post("/getUser", fetchUser, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findById(userId).select("+password");
     // const password = jwt.decode(user.password)
-    res.send({user});
+    res.send({ user });
 
     // console.log(password)
     console.log("Fetched data successfully");
@@ -122,20 +122,19 @@ router.post("/getUser", fetchUser, async (req, res) => {
 });
 
 // Route 4: Delete the logged user using DELETE /api/auth/deleteUser -- login required
-router.delete('/deleteUser/:id', fetchUser, async (req, res) => {
+router.delete("/deleteUser/:id", fetchUser, async (req, res) => {
   try {
     const userId = req.user.id;
     let user = await User.findById(userId);
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.status(404).send("User not found");
     }
     await User.findByIdAndDelete(userId);
     res.json("Account deleted successfully");
-    console.log("Account deleted successfully")
+    console.log("Account deleted successfully");
   } catch (error) {
     console.log(error);
     return res.json({ error: "Internal server error" });
   }
 });
-
 module.exports = router;

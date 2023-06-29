@@ -37,7 +37,8 @@ const SignUp = (props) => {
         Navigate("/home");
         props.showAlert("SignUp Successfully", "success");
       } else {
-        props.showAlert("User Already Exists", "danger");
+        props.showAlert("User elready exists with this email", "warning");
+        Navigate("/login")
       }
     } else {
       props.showAlert("Password must be same", "warning");
