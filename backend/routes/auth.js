@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
 
 const JWT_SECRET = "nitin_kumar_nimble@2905";
+
 // Route 1 : Create a user using : Post "/api/auth/createuser" , No login required
 router.post(
   "/createuser",
@@ -46,9 +47,9 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.send(user);
       const success = true;
       res.json({ success, authToken });
+      // res.send(user);
       console.log("Account created successfully")
     } catch (error) {
       console.log(error);

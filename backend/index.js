@@ -8,7 +8,19 @@ const app = express();
 const port = 5000;
 
 app.use(express.json());
-app.use(cors())
+app.use(
+  cors(
+    {
+    origin: ["https://inotes.vercel.app"],
+    methods: ["POST", "DELETE", "PUT"],
+    credentials: true,
+  }
+  )
+);
+
+app.get("/", (req,res)=>{
+  res.json("hello")
+})
 // available routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/notes", require("./routes/notes"));
