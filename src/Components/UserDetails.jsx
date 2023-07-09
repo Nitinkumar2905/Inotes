@@ -7,7 +7,9 @@ export const UserDetails = (props) => {
   const ref = useRef(null);
   const refClose = useRef(null);
   const [isloading, setIsloading] = useState(false);
-  const host = "http://localhost:5000";
+  // const host = "http://localhost:5000";
+  const host = "https://inotesbackend.vercel.app";
+
   useEffect(() => {
     getUserDetails();
     // eslint-disable-next-line
