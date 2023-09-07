@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   // const host = "http://localhost:5000";
-  const host = "https://inotes-backend-ten.vercel.app/";
+  const host = "https://inotes-backend-ten.vercel.app";
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const Navigate = useNavigate();
   const token = localStorage.getItem("token")
