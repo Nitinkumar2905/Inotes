@@ -69,7 +69,7 @@ const Navbar = (props) => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className={`nav-link ${
                     location.pathname === "/about" ? "fw-semibold" : ""
@@ -81,7 +81,7 @@ const Navbar = (props) => {
                 >
                   About
                 </Link>
-              </li>
+              </li> */}
             </ul>
             <div className="form-check form-switch mx-3">
               <input

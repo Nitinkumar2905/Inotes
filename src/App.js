@@ -45,7 +45,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home mode={mode} />} />
           <Route exact path="/home" element={<Home mode={mode} showAlert={showAlert} />} />
-          <Route exact path="/about" element={<About mode={mode} />} />
+          {/* <Route exact path="/about" element={<About mode={mode} />} /> */}
           <Route exact path="/login" element={<Login mode={mode} showAlert={showAlert} />} />
           <Route exact path="/signUp" element={<SignUp mode={mode} showAlert={showAlert} />} />
           <Route exact path="/UserInfo" element={<UserDetails />} showAlert={showAlert} />

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = (props) => {
-  // const host = "http://localhost:5000";
-  const host = "https://inotesbackend.vercel.app";
+  const host = "http://localhost:5000";
+  // const host = "https://inotesbackend.vercel.app";
 
   const [credentials, setCredentials] = useState({
     name: "",

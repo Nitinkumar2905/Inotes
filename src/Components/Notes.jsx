@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import noteContext from "../Context/notes/noteContext";
+import NoteContext from "../Context/notes/NoteContext"
 import { v4 as uuidv4 } from "uuid";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./Notes.css";
 
 function Notes(props) {
-  const context = useContext(noteContext);
+  const context = useContext(NoteContext);
   let navigate = useNavigate();
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
