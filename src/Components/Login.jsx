@@ -27,7 +27,7 @@ const Login = (props) => {
       // save the auth token and redirect to the note page
       localStorage.setItem("token", json.authToken);
       props.showAlert("Logged in Successfully", "success");
-      Navigate("/home");
+      Navigate("/notes");
     } else {
       props.showAlert("Invalid credentials", "danger");
     }

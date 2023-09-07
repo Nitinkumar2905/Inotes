@@ -7,7 +7,7 @@ const Navbar = (props) => {
   const Navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
-    Navigate("/login");
+    Navigate("/welcome");
   };
   const ref = useRef(null);
   let location = useLocation();
@@ -55,13 +55,12 @@ const Navbar = (props) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+            <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/home" ? "fw-semibold" :""
+                    location.pathname === "/about" ? "fw-semibold" : ""
                   } link-offset-2`}
-                  aria-current="page"
-                  to="/home"
+                  to="/welcome"
                   style={{
                     color: `${props.mode === "Dark" ? "white" : "black"}`,
                   }}
@@ -69,19 +68,21 @@ const Navbar = (props) => {
                   Home
                 </Link>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/about" ? "fw-semibold" : ""
+                    location.pathname === "/home" ? "fw-semibold" :""
                   } link-offset-2`}
-                  to="/about"
+                  aria-current="page"
+                  to="/notes"
                   style={{
                     color: `${props.mode === "Dark" ? "white" : "black"}`,
                   }}
                 >
-                  About
+                  Notes
                 </Link>
-              </li> */}
+              </li>
+              
             </ul>
             <div className="form-check form-switch mx-3">
               <input

@@ -36,11 +36,11 @@ const SignUp = (props) => {
       // save the auth token and redirect to the note page
       if (json.success) {
         localStorage.setItem("token", json.authToken);
-        Navigate("/home");
+        Navigate("/notes");
         props.showAlert("SignUp Successfully", "success");
       } else {
         props.showAlert("User elready exists with this email", "warning");
-        Navigate("/login")
+        Navigate("/")
       }
     } else {
       props.showAlert("Password must be same", "warning");
