@@ -6,6 +6,7 @@ const Login = (props) => {
   const host = "https://inotes-backend-ten.vercel.app/";
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const Navigate = useNavigate();
+  const token = localStorage.getItem("token")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,6 +14,7 @@ const Login = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "auth-token":token
       },
       body: JSON.stringify({
         email: credentials.email,
