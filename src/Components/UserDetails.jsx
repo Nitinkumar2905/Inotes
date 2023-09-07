@@ -8,7 +8,7 @@ export const UserDetails = (props) => {
   const refClose = useRef(null);
   const [isloading, setIsloading] = useState(false);
   // const host = "http://localhost:5000";
-  const host = "https://inotesbackend.vercel.app";
+  const host = "https://inotes-backend-ten.vercel.app/";
 
   useEffect(() => {
     getUserDetails();
