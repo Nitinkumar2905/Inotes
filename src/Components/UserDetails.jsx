@@ -106,7 +106,7 @@ export const UserDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between w-100 align-items-center ">
               <Link
-                to="/home"
+                to="/notes"
                 className={`mt-2 btn btn-${
                   props.mode === "Dark" ? "primary" : "dark"
                 } bg-${props.mode === "Dark" ? "black" : "primary"}`}
