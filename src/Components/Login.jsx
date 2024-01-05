@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,6 +17,7 @@ const Login = (props) => {
         "Content-Type": "application/json",
         "auth-token": token,
       },
+      credentials: "include",
       body: JSON.stringify({
         email: credentials.email,
         password: credentials.password,
@@ -30,10 +31,10 @@ const Login = (props) => {
       toast.success("Logged In successfully!");
       Navigate("/notes");
     } else {
-      toast.error("Invalid credentials",{
-        style:{
-          border:"2px solid red"
-        }
+      toast.error("Invalid credentials", {
+        style: {
+          border: "2px solid red",
+        },
       });
     }
   };

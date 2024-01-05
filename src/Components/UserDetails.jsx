@@ -24,6 +24,7 @@ export const UserDetails = (props) => {
           "Content-Type": "application/json",
           "auth-token": localStorage.getItem("token"),
         },
+        credentials: 'include',
       });
 
       if (!response.ok) {
