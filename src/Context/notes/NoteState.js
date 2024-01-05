@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NoteContext from "./NoteContext";
+import toast from "react-hot-toast";
 
 const NoteState = (props) => {
   // const host = 'http://localhost:5000'
@@ -45,6 +46,7 @@ const NoteState = (props) => {
       if (!response.ok) {
         throw new Error("Internal server error"); // Throw an error if the response is not successfull
       }
+      toast.success("Note added successfully")
 
       const json = await response.json();
       const note = {
