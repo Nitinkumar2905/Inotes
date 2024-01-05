@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import userIcon from "./img/user.png";
+import toast from "react-hot-toast";
 
 const Navbar = (props) => {
 
   const Navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    toast("Logged Out successfully!")
     Navigate("/welcome");
   };
   const ref = useRef(null);

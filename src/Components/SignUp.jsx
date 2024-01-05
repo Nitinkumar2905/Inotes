@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = (props) => {
@@ -37,13 +38,13 @@ const SignUp = (props) => {
       if (json.success) {
         localStorage.setItem("token", json.authToken);
         Navigate("/notes");
-        props.showAlert("SignUp Successfully", "success");
+        toast.success("Account created successfully!")
       } else {
-        props.showAlert("User elready exists with this email", "warning");
+        toast.error("User already exist with this email")
         Navigate("/")
       }
     } else {
-      props.showAlert("Password must be same", "warning");
+      toast.error("Password must be same (●'◡'●)")
     }
   };
 

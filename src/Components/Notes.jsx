@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import NoteContext from "../Context/notes/NoteContext"
+import NoteContext from "../Context/notes/NoteContext";
 import { v4 as uuidv4 } from "uuid";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 import { useNavigate } from "react-router-dom";
 import "./Notes.css";
+import toast from "react-hot-toast";
 
 function Notes(props) {
   const context = useContext(NoteContext);
@@ -41,7 +42,7 @@ function Notes(props) {
   const handleClick = (e) => {
     refClose.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
-    props.showAlert("Note updated successfully", "success");
+    toast.success("Note updated successfully!");
   };
 
   const onchange = (e) => {

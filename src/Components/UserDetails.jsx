@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-
 
 export const UserDetails = (props) => {
   const Navigate = useNavigate();
@@ -59,7 +59,7 @@ export const UserDetails = (props) => {
 
     if (response.status === 404) {
       // Handle user not found error
-      alert("User not found");
+      toast.error("User not found!")
       return;
     }
     setIsloading(true);
@@ -68,14 +68,17 @@ export const UserDetails = (props) => {
       const json = await response.json();
       if (response.ok) {
         localStorage.removeItem("token");
+        toast.success("Account deleted successfully!");
         Navigate("/signUp");
       } else {
-        alert("Cannot process this request right now");
+        toast.error("Cannot process this request right now ");
         console.log(json);
       }
     } catch (error) {
       console.log(error);
-      alert("Error occurred while processing the request");
+      toast.error(
+        "some internal error occurred while proccessing your request, please try later!"
+      );
     }
   };
 
@@ -154,8 +157,8 @@ export const UserDetails = (props) => {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div className="modal-body">
-                    Do you really want to delete the account ?{" "}
+                  <div className="text-start modal-body">
+                    Do you really want to delete this account?{" "}
                   </div>
                   <div className="modal-footer">
                     <button

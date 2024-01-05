@@ -9,6 +9,7 @@ import Login from "./Components/Login";
 import { UserDetails } from "./Components/UserDetails";
 import Alert from "./Components/Alert";
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -27,12 +28,14 @@ function App() {
   const toggleMode = () => {
     if (mode === "Dark") {
       setMode("Light");
-      showAlert('Switched to light mode', 'success')
+      // showAlert('Switched to light mode', 'success')
+      toast.success("Switched to light mode")
       // document.body.style.backgroundColor = "#E3DAC9";
     }
     else {
       setMode("Dark");
-      showAlert('Switched to dark mode', 'success')
+      // showAlert('Switched to dark mode', 'success')
+      toast.success("Switched to dark mode")
       // document.body.style.backgroundColor = "#E3DAC9";
     }
   }
@@ -40,6 +43,8 @@ function App() {
   return (
     <NoteState>
       <Router>
+        <Toaster position="top-center" toastOptions={{ duration: 1000 }}
+          reverseOrder={false} />
         <Navbar mode={mode} handleMode={toggleMode} />
         <Alert alert={alert} />
         <Routes>

@@ -8,8 +8,6 @@ const NoteState = (props) => {
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial)
 
-
-
   // Fetch all notes
   const getNotes = async () => {
     //  API call

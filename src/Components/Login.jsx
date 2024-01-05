@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
@@ -6,7 +7,7 @@ const Login = (props) => {
   const host = "https://inotes-backend-ten.vercel.app";
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const Navigate = useNavigate();
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ const Login = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":token
+        "auth-token": token,
       },
       body: JSON.stringify({
         email: credentials.email,
@@ -26,10 +27,14 @@ const Login = (props) => {
     if (json.success) {
       // save the auth token and redirect to the note page
       localStorage.setItem("token", json.authToken);
-      props.showAlert("Logged in Successfully", "success");
+      toast.success("Logged In successfully!");
       Navigate("/notes");
     } else {
-      props.showAlert("Invalid credentials", "danger");
+      toast.error("Invalid credentials",{
+        style:{
+          border:"2px solid red"
+        }
+      });
     }
   };
   const onChange = (e) => {
